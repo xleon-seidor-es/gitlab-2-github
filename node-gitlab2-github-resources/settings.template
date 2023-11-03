@@ -1,0 +1,56 @@
+import Settings from './src/settings';
+
+export default {
+  gitlab: {
+    url: 'https://gitlab.com',
+    token: 'GITLAB_TOKEN',
+    projectId: PROJECT_ID,
+    listArchivedProjects: true,
+    sessionCookie: "",
+  },
+  github: {
+    baseUrl: 'https://github.com/seidor-cx',
+    apiUrl: 'https://api.github.com',
+    owner: 'seidor-cx',
+    ownerIsOrg: true,
+    token: 'GITHUB_TOKEN',
+    token_owner: 'GITHUB_TOKEN',
+    repo: 'PROJECT_NAME',
+    recreateRepo: false,
+  },
+  s3: {
+    accessKeyId: '{{accessKeyId}}',
+    secretAccessKey: '{{secretAccessKey}}',
+    bucket: 'my-gitlab-bucket',
+  },
+  usermap: {
+    'xleon.seidor.es': 'xleonseidor',
+  },
+  projectmap: {
+  },
+  conversion: {
+    useLowerCaseLabels: true,
+  },
+  transfer: {
+    description: true,
+    milestones: true,
+    labels: true,
+    issues: true,
+    mergeRequests: true,
+    releases: true,
+  },
+  dryRun: false,
+  useIssueImportAPI: true,
+  usePlaceholderMilestonesForMissingMilestones: true,
+  usePlaceholderIssuesForMissingIssues: true,
+  useReplacementIssuesForCreationFails: true,
+  useIssuesForAllMergeRequests: false,
+  filterByLabel: undefined,
+  trimOversizedLabelDescriptions: false,
+  skipMergeRequestStates: [],
+  skipMatchingComments: [],
+  mergeRequests: {
+    logFile: './merge-requests.json',
+    log: false,
+  },
+} as Settings;

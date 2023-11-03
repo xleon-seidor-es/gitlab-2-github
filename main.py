@@ -19,6 +19,7 @@ github_client = GithubAPIClient(MySecrets.github_api_url, MySecrets.github_token
 
 def get_projects_wiki(list_projects):
     for repo in list_projects:
+        repo.check_contains_wiki()
         if repo.WIKI_URL != "":
             logging.info(
                 f"Getting wiki from repository {repo.NAME}: {repo.WIKI_URL}")
@@ -328,11 +329,12 @@ def main():
     parser.add_argument('--archived', type=bool, default=False,help='Migrate Archived repositories, this flas only migrate the archived repositories, by default is False')
     parser.add_argument('--archive-repos', type=str,help='Archive repositories in Github, this flag only archive the repositories in Github, by default is False')
     parser.add_argument('--unarchive-repos', type=str,help='Archive repositories in Github, this flag only archive the repositories in Github, by default is False')
+    parser.add_argument('--list-repos', action='store_true',help='List all Gitlab archived repositories')
     parser.add_argument('--list-archived-repos', action='store_true',help='List all Gitlab archived repositories')
     parser.add_argument('--list-wikis', action='store_true',help='List wiki from Gitlab ')
     args = parser.parse_args()
 
-    if args.migrate_repo is None and args.migrate_since_repo is None and args.migrate_wiki is None and args.migrate_snippets is None and args.delete_repo is None and args.delete_wiki is None and args.archive_repos is None and args.unarchive_repos is None and args.list_archived_repos is False and args.list_wikis is False:
+    if args.migrate_repo is None and args.migrate_since_repo is None and args.migrate_wiki is None and args.migrate_snippets is None and args.delete_repo is None and args.delete_wiki is None and args.archive_repos is None and args.unarchive_repos is None and args.list_repos is False and args.list_archived_repos is False and args.list_wikis is False:
         logging.info("No action specified, exiting...")
         sys.exit(1)
     get_projects(list_projects, args.archived)
@@ -385,6 +387,10 @@ def main():
         else:
             repo_name = args.unarchive_repos
             github_client.archive_repository(repo_name, 'false')
+    elif args.list_repos:
+        projects = []
+        get_projects(projects, False)
+        print_projects_list(projects)
     elif args.list_archived_repos:
         archived_projects = []
         get_projects(archived_projects, True)

@@ -16,10 +16,7 @@ class repository:
             self.WIKI_URL = self.URL_CLONE.replace(".git", ".wiki.git")
         else:
             self.WIKI_URL = wiki_url
-        if wiki_exists == '':
-            self.WIKI_EXISTS = self.check_contains_wiki()
-        else:
-            self.WIKI_EXISTS = wiki_exists
+        self.WIKI_EXISTS = wiki_exists
 
     def check_contains_wiki(self):
         has_wiki = False
